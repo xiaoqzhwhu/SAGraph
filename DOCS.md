@@ -1,11 +1,9 @@
 # SAGraph
 
-## SAGraph: A Text-Rich Large Social Advertisement
-Graph Dataset for Advertising Campaigns
-
+## SAGraph: A Text-Rich Large Social Advertisement Graph Dataset for Advertising Campaigns
 SAGraph is the largest-ever text-rich data for social advertising campaigns. It consists of 317,287 users, each with their profile information, the original ad copy, and interaction data including 891,834 comments and 441,836 reposts. With the rich interaction and textual content, one can gain deeper insights into consumer behavior, refine influencer selection criteria, and develop more targeted and effective marketing strategies. We evaluated existing influencer selection baselines and the latest LLMs on this dataset, demonstrating the importance of textual content in advertising campaigns and the potential of LLMs for enhancing advertising strategies.
 
-![](/Users/xiaoqingzhang/Desktop/sagraph_github/data.png)
+![](./images/data.png)
 
 Figure: (a) An example image of SAGraph that includes users, profile information, ads, and interaction data. (b) The comparison of influencers under the simulation of LLMs.
 
@@ -67,7 +65,7 @@ python evaluate.py eval_type; (classic or llm)
 
 # Dataset Information
 
-![](/Users/xiaoqingzhang/Desktop/sagraph_github/data_statistics.png)
+![](./images/data_statistics.png)
 
 The product information , profile data of each user and interaction data under the posts are listed [here](https://drive.google.com/drive/folders/1up7Fo6HZ0fJOKIWA3vTMwRn-cLyDOrS4?usp=drive_link).
 
@@ -77,7 +75,7 @@ The product information , profile data of each user and interaction data under t
 
 # Data Construction
 
-![](/Users/xiaoqingzhang/Desktop/sagraph_github/sagc.png)
+![](./images/sagc.png)
 
 The implementation of the data collection are located in `data_collection` folder on Github.
 
@@ -109,7 +107,7 @@ Evaluation and comparison of the different baselines are found in `evaluation` f
 
 The performance of six products for each baseline model for all metrics is shown below:
 
-![](/Users/xiaoqingzhang/Desktop/sagraph_github/experiment.png)
+![](./images/experiment.png)
 
 # Acknowledgement
 
