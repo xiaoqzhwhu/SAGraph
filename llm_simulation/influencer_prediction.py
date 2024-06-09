@@ -16,61 +16,27 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 import numpy as np
 
-product = "huohuasiwei"
-product = "brush"
-# product = "yunjing"
-# product = "cream"
-# product = "abc"
-# product = "alice"
-# product = "suboer"
-relation_file = "t100/%s_r5_relation.txt" % product
-static_file = "t100/%s_r5.static.graph" % product
-dynamic_file = "t100/%s_r5.dynamic.graph" % product
-feature_file = "t100/%s.feature.v6" % product
-PRODUCT_DETAIL = {
-    "huohuasiwei": {
-        "product_name": "火花思维", 
-        "product_type": "教育", 
-        "product_info": "火花思维11月活动海报见图！4880元到手48节课，赠送1W5火花币，听力熊听力机，科普书《世界真奇妙》10套。长按扫码即可购买～\n送了几个月的玉米，这次换赠品了，\npr委婉的提醒我：\n你总送玉米，大家会不会吃够了呢[并不简单][并不简单]\n这次换成一套科普书啦！\n11月买课的都会发这套书嗷！\n如果有想要玉米的，\n也可以单独私信我换礼品",
-        "gt_ids": ["1748332981", "1674427277", "3213060995", "1929045072"]
-        },
-    "brush": {
-        "product_name": "徕芬扫振电动牙刷",
-        "product_type": "数码",
-        "product_info": "之前让高速吹风机更加普及的#徕芬#，这次又来普及电动牙刷了，“果味”实足的外观，扫振一体的设计配上徕芬自研伺服系统，不得不说徕芬的电动牙刷在清洁能力上确实有两把刷子。",
-        "gt_ids": ["1738877650", "1960732503", "1363450462", "1669537002", "3309403941"]
-        },
-    "cream": {
-        "product_name": "红宝石面霜",
-        "product_type": "美妆",
-        "product_info": "红宝石面霜是我近几年用最多的面霜，超级爱用。升级后使用感更好了，用了之后感觉皮肤状态也很好。也几乎年年都跟珀莱雅合作，今年我也以为合作了，结果一问才发现没有[破涕为笑]搞错了，大家可以搜搜看别的博主有没有合作的，真的好好用。面膜也好用，有精华打底，会觉得效果不是表面的，我晚上护肤环节都是面膜+面霜，就觉得滋润很深入，脸软软嘭嘭的。 ",
-        "gt_ids": ["2786726492", "2803674644", "2833050332", "1776459797", "3993044286", "2360171883", "1832452643"]
-        },
-    "yunjing": {
-        "product_name": "云鲸智能洗地机",
-        "product_type": "家居",
-        "product_info": "我向来都是能不用手，就不动腿，拖地这种是，交给扫拖机器人不就好了，直到我用上了最新发布的云鲸智能洗地机S1，不仅轻便，还洗的干净，朋友们，我居然爱上洗地了！来看看！",
-        "gt_ids": ["2292724833", "1642720480", "1735618597", "3340909732"]
-        },
-    "abc": {
-        "product_name": "ABCReading",
-        "product_type": "教育",
-        "product_info": "【ABCreading直播福利专场】\n🔥SVIP 3年卡独家活动，到手4年！\n🏆分级阅读TOP1， 超过3000万中国孩子都在用的APP\n🌟海淀四大鸡娃神器，分性翁级阅读百科全书，学英语必备",
-        "gt_ids": ["1689918212", "1468736221", "2626683933", "6690736938"]
-        },
-    "alice": {
-        "product_name": "爱丽丝电压力锅",
-        "product_type": "家居",
-        "product_info": "一个高颜值的多功能的锅，可以用来煮饭、煮粥、炖红烧肉、炖蹄筋、炖排骨汤等。据说还可以做低温料理～ 我目前试过炖排骨汤（排骨玉米，排骨萝卜），肉可以炖的很烂，入口即化！炖烂的肉搭配小马哥的“祖传秘制”沾水，太好吃了！炖煮的时候大部分它都很安静，不会像传统放明火上的老式高压锅有声音。",
-        "gt_ids": ["5426716682", "5716589670", "1806558670", "2503628005"]
-        },
-    "suboer": {
-        "product_name": "苏泊尔增压过滤花洒",
-        "product_type": "家电",
-        "product_info": "【99rmb的苏泊尔净水增压花洒来啦～到手三管滤芯】能够过滤掉自来水中“氯元素/水锈等有害物质”。我对水质的要求很高，很早就强调过皮肤➕头发好的一大影响因素就是水质。我用普通花洒洗澡的话发尾偏干涩，换净水花洒后头发洗完就非常顺滑了。如果你们肌肤敏感干燥，容易长痘起皮，头发干涩，脱发又比较严重可以先试试去过滤掉日常用水中的有害物质。",
-        "gt_ids": ["3051159885", "1506441127", "6883393827", "5831203045"]
-    }
-    }
+openai.api_type = "open_ai"
+openai.api_version=""
+api_key_kimi = ""
+api_base_kimi = ""
+api_key_gpt = ""
+api_base_gpt = ""
+
+product = "spark_thinking"
+# product = "electric_toothbrush"
+# product = "intelligent_floor_scrubber"
+# product = "ruby_face_cream"
+# product = "abc_reading"
+# product = "supor_boosted_showerhead"
+static_file = "dataset/%s_r5.static.graph" % product
+dynamic_file = "dataset/%s_r5.dynamic.graph" % product
+feature_file = "dataset/%s.feature.v6" % product
+
+PRODUCT_DETAIL = {}
+with open("dataset/product_info.jsonl", 'r', encoding='utf-8') as file:
+        PRODUCT_DETAIL = json.load(file)
+
 PROMPT_DICT = {
     "prompt4staticprofile": "每个标号后面是用户的个性签名，请以json列表的形式输出每个用户可能感兴趣的领域，id字段为标号，interests字段为领域，多个领域采用列表，输出中文。\n",
     "prompt4dynamicprofile": "每个标号后面是一个用户的评论，post为上文，reply为当前用户的回复，请以json列表的形式输出回复的每个用户可能感兴趣的领域，当前回复对上文的支持程度，以及和上文的相关性，id字段为标号，interests字段为领域，多个领域采用列表，support_score为支持程度，relative_score为相关性程度，输出中文，支持程度和相关性程度打分1-10。输出结果为可解析的json。\n",
@@ -80,12 +46,6 @@ PROMPT_DICT = {
     
 }
 
-openai.api_type = "open_ai"
-#openai.api_base = "https://api.openai.com/v1"
-# openai.api_base = "http://172.24.70.1:38093/v1"
-openai.api_version=""
-#openai.api_key = "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"
-# openai.api_key = "ZG9uZ21lbmduYW46MHZsQTNMNjAyWWlOWEtrSjdtcEE2VWhEOW5ZZzF2NUM="
 
 import re
 
@@ -105,11 +65,11 @@ def get_response(text, model="gpt-3.5-turbo"):
     # print("messages")
     # print(messages)
     if model == "gpt-3.5-turbo" or model == "gpt-4":
-        openai.api_base = "http://172.24.70.1:38093/v1"
-        openai.api_key = "ZG9uZ21lbmduYW46MHZsQTNMNjAyWWlOWEtrSjdtcEE2VWhEOW5ZZzF2NUM="
+        openai.api_base = api_base_gpt
+        openai.api_key = api_key_gpt
     else:
-        openai.api_base = "https://test-0121-v6-rollout.app.msh.team/v1"
-        openai.api_key = "12312"
+        openai.api_base = api_base_kimi
+        openai.api_key = api_key_kimi
     result = openai.ChatCompletion.create(model=model, messages=messages, temperature=0.95)
     response = result['choices'][0]['message']['content']
     print("response")
@@ -134,7 +94,7 @@ def load_seeds(round, static_data):
     global product
     seed_set = []
     for i in range(round+1):
-        filename = "t100/%s_r%s_uid.txt" % (product, i)
+        filename = "dataset/%s_r%s_uid.txt" % (product, i)
         for line in open(filename, "r", encoding="utf-8"):
             line = line.strip("\n")
             fields = line.split("\t")
@@ -143,13 +103,6 @@ def load_seeds(round, static_data):
                     seed_set.append(str(fields[0]))
         print(len(seed_set))
     return set(seed_set)
-
-# 加载互动网络图
-def load_interaction_graph():
-    global relation_file
-    user_dict = {}
-    interaction_graph = len(user_dict) * len(user_dict)
-    return interaction_graph
 
 # 加载静态信息：用户ID，静态profile
 def load_static_profile():
@@ -544,48 +497,9 @@ def influencer_ranking(static_profile, dynamic_file, request_type, prompt_type, 
         user_name = static_profile[user_id]["user_name"]
         if user_name not in name2id:
             name2id.setdefault(user_name, user_id)
-        # print(user_id)
-        # before_ranking_list.append(user_name)
         continue_flag = 0
         followers_count = static_profile[user_id]["user_followers"]
-        # huohuasiwei
-        # if followers_count > 100000 and followers_count < 200000:
-        #     continue_flag = 1
-        # if followers_count > 400000 and followers_count < 600000:
-        #     continue_flag = 1
-        # if followers_count > 2000000 and followers_count < 3000000:
-        #     continue_flag = 1
-
-        # brush
-        # if followers_count > 1500000 and followers_count < 2500000:
-        #     continue_flag = 1
-        # if followers_count > 3000000 and followers_count < 4000000:
-        #     continue_flag = 1
-        # if followers_count > 6000000 and followers_count < 7000000:
-        #     continue_flag = 1
-
-        # # cream
-        # if followers_count > 100000 and followers_count < 1000000:
-        #     continue_flag = 1
-        # if continue_flag == 0:
-        #     continue
-
-        # yunjing
-        # if followers_count > 100000 and followers_count < 200000:
-        #     continue_flag = 1
-        # if followers_count > 300000 and followers_count < 400000:
-        #     continue_flag = 1
-        # if followers_count > 2000000 and followers_count < 2500000:
-        #     continue_flag = 1
-        # if followers_count > 6500000 and followers_count < 7000000:
-        #     continue_flag = 1
-        # if continue_flag == 0:
-        #     continue
-        # before_ranking_list.append(user_name)
         response = behavior_result[user_id]
-        # print(user_id)
-        # print(response)
-        # print(response)
         response = response.replace("null", "0")
         response = response.replace("...", "")
         response = response.replace(" ", "")
@@ -603,11 +517,6 @@ def influencer_ranking(static_profile, dynamic_file, request_type, prompt_type, 
                 comments = json.loads("[" + response + "]")
             except:
                 comments = json.loads(response + "}")
-            #     # print(response)
-            #     try:
-            #         comments = json.loads(response + "}")
-            #     except:
-            #         comments = json.loads(response.replace("'", "\""))
         avg_score = 0
         effective_count = 0
         
@@ -829,7 +738,6 @@ if __name__ == "__main__":
     # print(seed_set)
     print(len(seed_set))
     dynamic_profile = load_dynamic_profile()
-    interaction_graph = load_interaction_graph()
     feature_dict = load_features()
     gt_names = [static_profile[_id]["user_name"] for _id in gt_ids]
 

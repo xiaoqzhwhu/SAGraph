@@ -11,38 +11,27 @@ import joblib
 
 
 
-product = "huohuasiwei"
+product = "spark_thinking"
 gt_user = ["林小暖bella", "小土大橙子", "小兽睡睡", "机器人家"]
-# product = "abc"
+# product = "abc_reading"
 # gt_user = ["周周anais", "苒妈镜镜Mirror", "大小仲育儿时光", "万物心选·Kids"]
-# product = "alice"
-# gt_user = ["西马光夹缸", "牛奶和爱丽丝", "瑞娘-轻素家", "小燕子是我吖"]
-# product = "brush"
+# product = "electric_toothbrush"
 # gt_user = ["牧宸", "我是HYK", "搞机小公主", "数码君", "飞扬发髻"]
-# product = "cream"
+# product = "ruby_face_cream"
 # gt_user = ["小丁的备忘录哟", "差点失控了", "娜娜酱肉噗噗", "十三块五", "一只可爱珣", "吃掉小熊掌", "懒狐狸cindy"]
-# product= "yunjing"
+# product= "intelligent_floor_scrubber"
 # gt_user = ["吴小杰WJie", "结衣衣君", "爱范儿", "驴立领"]
-# product= "suboer"
+# product= "supor_boosted_showerhead"
 # gt_user = ["月亮碎片kakera-", "甜甜甜宝_", "废话小梦", "坡诶佩"]
 
 
-relation_file = "t100/%s_r5_relation.txt" % product
-static_file = "t100/%s_r5.static.graph" % product
-dynamic_file = "t100/%s_r5.dynamic.graph" % product
-feature_file = "t100/%s.feature.v6" % product
-# train_file = "t100/%s.train.data.v7" % product
-train_file = "t100/train.data.v16"
+static_file = "dataset/%s_r5.static.graph" % product
+dynamic_file = "dataset/%s_r5.dynamic.graph" % product
+feature_file = "dataset/%s.feature.v6" % product
+train_file = "dataset/train.data.v16"
 
 def random_sampling(graph, n):
     return random.sample(graph.nodes(), n)
-
-# 加载互动网络图
-def load_interaction_graph():
-    global relation_file
-    user_dict = {}
-    interaction_graph = len(user_dict) * len(user_dict)
-    return interaction_graph
 
 # 加载静态信息：用户ID，静态profile
 def load_static_profile():
@@ -63,7 +52,7 @@ def load_seeds(round, static_data):
     global product
     seed_set = []
     for i in range(round+1):
-        filename = "t100/%s_r%s_uid.txt" % (product, i)
+        filename = "dataset/%s_r%s_uid.txt" % (product, i)
         for line in open(filename, "r", encoding="utf-8"):
             line = line.strip("\n")
             fields = line.split("\t")
@@ -343,7 +332,6 @@ def rank(feature_dict, static_data, weights=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05,
 if __name__ == "__main__":
     static_profile = load_static_profile()
     dynamic_profile = load_dynamic_profile()
-    interaction_graph = load_interaction_graph()
     # influence_dict = calculate_persona_influence(static_profile, dynamic_profile)
     # # print(influence_dict)
     # frequency_dict = calculate_interaction_frequency(static_profile, dynamic_profile)
