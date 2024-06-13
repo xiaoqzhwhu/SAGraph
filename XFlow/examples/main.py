@@ -10,38 +10,33 @@ import itertools
 
 
 gt_ids = {
-    "huohuasiwei": ["1748332981", "1674427277", "3213060995", "1929045072"],
-    "brush": ["1738877650", "1960732503", "1363450462", "1669537002", "3309403941"],
-    "cream": ["2786726492", "2803674644", "2833050332", "1776459797", "3993044286", "2360171883", "1832452643"],
-    "yunjing": ["2292724833", "1642720480", "1735618597", "3340909732"],
-    "abc": ["1689918212", "1468736221", "2626683933", "6690736938"],
-    "alice": ["5426716682", "5716589670", "1806558670", "2503628005"],
-    "suboer": ["3051159885", "1506441127", "6883393827", "5831203045"]
+    "spark_thinking": ["1748332981", "1674427277", "3213060995", "1929045072"],
+    "electric_toothbrush": ["1738877650", "1960732503", "1363450462", "1669537002", "3309403941"],
+    "ruby_face_cream": ["2786726492", "2803674644", "2833050332", "1776459797", "3993044286", "2360171883", "1832452643"],
+    "intelligent_floor_scrubber": ["2292724833", "1642720480", "1735618597", "3340909732"],
+    "abc_reading": ["1689918212", "1468736221", "2626683933", "6690736938"],
+    "supor_boosted_showerhead": ["3051159885", "1506441127", "6883393827", "5831203045"]
 }
 
 product_domains = {
-    "huohuasiwei": ["教育", "育儿", "亲子", "学习", "数学"],
-    "brush": ["数码", "家居", "科技"],
-    "cream": ["美妆", "护肤", "彩妆", "种草", "女性社区", "生活", "家居", "趣味", "购物", "品牌合作", "道路挑战", "情感", "悲伤", "人生观察", "婚姻", "人类进步", "化妆品", ],
-    "yunjing": ["数码", "家居", "科技"],
-    "abc": ["教育", "育儿", "亲子", "学习", "英语", "亲子教育", "早教"],
-    "alice": ["美食", "家居"],
-    "suboer": ["家居", "家具", "电器"]
+    "spark_thinking": ["教育", "育儿", "亲子", "学习", "数学"],
+    "electric_toothbrush": ["数码", "家居", "科技"],
+    "ruby_face_cream": ["美妆", "护肤", "彩妆", "种草", "女性社区", "生活", "家居", "趣味", "购物", "品牌合作", "道路挑战", "情感", "悲伤", "人生观察", "婚姻", "人类进步", "化妆品", ],
+    "intelligent_floor_scrubber": ["数码", "家居", "科技"],
+    "abc_reading": ["教育", "育儿", "亲子", "学习", "英语", "亲子教育", "早教"],
+    "supor_boosted_showerhead": ["家居", "家具", "电器"]
 }
 
-product = "huohuasiwei"
-product = "abc"
-# product = "brush"
-# product = "cream"
-# product=  "yunjing"
-# product = "suboer"
-# product = "alice"
+product = "spark_thinking"
+product = "abc_reading"
+# product = "electric_toothbrush"
+# product = "ruby_face_cream"
+# product=  "intelligent_floor_scrubber"
+# product = "supor_boosted_showerhead"
 
-relation_file = "../../t100/%s_r5_relation.txt" % product
-static_file = "../../t100/%s_r5.static.graph" % product
-dynamic_file = "../../t100/%s_r5.dynamic.graph" % product
-# train_file = "t100/%s.train.data.v7" % product
-train_file = "t100/train.data.v8"
+static_file = "../../dataset/%s_profile.jsonl" % product
+dynamic_file = "../../dataset/%s_dynamic.graph" % product
+train_file = "dataset/train.data"
 
 def random_sampling(graph, n):
     return random.sample(graph.nodes(), n)
@@ -51,7 +46,7 @@ def load_seeds_from_uid(round, static_data):
     global product
     seed_set = []
     for i in range(round+1):
-        filename = "../../t100/%s_r%s_uid.txt" % (product, i)
+        filename = "../../dataset/%s_r%s_uid.txt" % (product, i)
         for line in open(filename, "r", encoding="utf-8"):
             line = line.strip("\n")
             fields = line.split("\t")
@@ -96,8 +91,6 @@ def load_seed_from_domain(static_data, seeds_pool):
         candidate_dict.setdefault(seed, static_data[seed]["user_followers"])
     sorted_dict = dict(sorted(candidate_dict.items(), key=lambda item: item[1], reverse=True))
     seed_set = list(itertools.islice(sorted_dict.keys(), 13))
-    print(len(seed_set))
-    print(len(seeds_pool))
     return seed_set
 
 def load_seed_from_model():
@@ -124,13 +117,6 @@ def load_seeds():
         seed_set.append(fields[0])
     print(seed_set[:20])
     return seed_set[:20]
-
-# 加载互动网络图
-def load_interaction_graph():
-    global relation_file
-    user_dict = {}
-    interaction_graph = len(user_dict) * len(user_dict)
-    return interaction_graph
 
 # 加载静态信息：用户ID，静态profile
 def load_static_profile():
@@ -204,25 +190,3 @@ rt = run (
     gt_names = [static_data[gid]["user_name"] for gid in gt_ids[product]],
     seed_set = seed_set)
 
-# # configurations of IBM experiments
-# from xflow.method.ibm import pi as ibm_pi, degree as ibm_degree, sigma as ibm_sigma, eigen as im_eigen, greedy as ibm_greedy
-# me = [ibm_pi, ibm_sigma, ibm_degree]
-# rt = run (
-#     graph = gs, diffusion = df, 
-#     method = me, eval = 'ibm', epoch = 10,
-#     budget = 10,
-#     output = [ 'animation', 'csv', 'fig'],
-#     seeds = seed_random)
- 
-# # configurations of SL experiments
-# from xflow.method.cosasi.source_inference.multiple_source.netsleuth import netsleuth, fast_multisource_netsleuth
-# from xflow.method.cosasi.source_inference.multiple_source.lisn import fast_multisource_lisn
-# from xflow.method.cosasi.source_inference.multiple_source.jordan import fast_multisource_jordan_centrality
-
-# me = [netsleuth]
-# rt = run (
-#     graph = gs, diffusion = df, 
-#     method = me, eval = 'sl', epoch = 10,
-#     budget = 10,
-#     output = [ 'animation', 'csv', 'fig'],
-#     seeds = seed_random)

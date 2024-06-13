@@ -360,5 +360,10 @@ if __name__ == "__main__":
 
     if sys.argv[1] == "llm":
         eval_llm()
+    
+    elif sys.argv[1] == "classic":
+        print("Switch to the XFlow projects for the classic results: ")
+        print("cd ../XFlow/examples/")
+        print("python main.py")
 
     
