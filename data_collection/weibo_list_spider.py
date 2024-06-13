@@ -9,13 +9,15 @@ from pathlib import Path
 import redis
 import requests
 from loguru import logger
-# from Redis_DB import RedisClient, loggings
 
-
+# 1、config your redis here
 REDIS_HOST = "127.0.0.1"
 REDIS_PORT = 6379
-#base_path = "/mnt/datadisk1/house_video/takl_data/weibo/"
 base_path = "./"
+# 2、update your proxy here
+proxy_pool = "127.0.0.1:2222"
+
+# 3、update cookie for data crawling
 
 
 HDADERS = {
@@ -111,9 +113,10 @@ def get_response(url:str):
     :return:
     """
     spider_error = ''
+    global proxy_pool
     for i in range(6):
         try:
-            ip_str = requests.get("http://172.24.99.255:9528/vpsgn_get_proxy",timeout=10).text
+            ip_str = requests.get("http://%s/vpsgn_get_proxy"%proxy_pool,timeout=10).text
             if ip_str:
                 ip_str = ip_str.strip()
                 pattern = re.compile(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d+$')

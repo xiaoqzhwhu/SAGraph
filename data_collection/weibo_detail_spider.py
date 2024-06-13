@@ -10,6 +10,8 @@ from multiprocessing import Process
 import requests
 from weibo_list_spider import base_path, get_response, RedisClient, loggings
 
+proxy_pool = "127.0.0.1:2222"
+
 def write_to_redis(uid):
     """
     将列表页获取到的url列表 存入redis
@@ -241,9 +243,10 @@ def get_weibo_reposts(comment_id):
 
 
 def get_longtext(mblogid):
+    global proxy_pool
     for i in range(10):
         try:
-            proxy_str = requests.get("http://172.24.99.255:9528/vpsgn_get_proxy",timeout=10).text
+            proxy_str = requests.get("http://%s/vpsgn_get_proxy"%proxy_pool,timeout=10).text
             proxy = {"http": proxy_str, "https": proxy_str}
             visitor_url = "https://passport.weibo.com/visitor/genvisitor2"
             post_data = {

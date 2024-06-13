@@ -113,6 +113,4 @@ def init_redis(filename):
 
 
 if __name__ == '__main__':
-    #init_redis("uid.txt")
-    #init_redis("t100/huohuasiwei_r5_uid.txt")
-    init_redis("t100/suboer_r5_uid.txt")
+    init_redis("dataset/spark_thinking_r0_uid.txt")
