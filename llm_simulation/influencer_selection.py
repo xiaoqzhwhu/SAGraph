@@ -27,8 +27,8 @@ gt_user = ["林小暖bella", "小土大橙子", "小兽睡睡", "机器人家"]
 
 static_file = "dataset/%s_r5.static.graph" % product
 dynamic_file = "dataset/%s_r5.dynamic.graph" % product
-feature_file = "dataset/%s.feature.v6" % product
-train_file = "dataset/train.data.v16"
+feature_file = "dataset/%s.feature" % product
+train_file = "dataset/train.data"
 
 def random_sampling(graph, n):
     return random.sample(graph.nodes(), n)
@@ -309,7 +309,7 @@ def model_train(train_data, labels):
 #
 def rank(feature_dict, static_data, weights=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]):
     score_dict = {}
-    filename = '../models/random_forest_model_v9.joblib'
+    filename = '../models/random_forest_model.joblib'
     rf_classifier = joblib.load(filename)
     for user_id in feature_dict:
         feature = feature_dict[user_id]
@@ -332,22 +332,22 @@ def rank(feature_dict, static_data, weights=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05,
 if __name__ == "__main__":
     static_profile = load_static_profile()
     dynamic_profile = load_dynamic_profile()
-    # influence_dict = calculate_persona_influence(static_profile, dynamic_profile)
-    # # print(influence_dict)
-    # frequency_dict = calculate_interaction_frequency(static_profile, dynamic_profile)
-    # # print(frequency_dict)
-    # broadcast_dict = calculate_information_broadcast(static_profile, dynamic_profile)
-    # # print(broadcast_dict)
-    # centrality_dict = calculate_social_network_centrality(static_profile, dynamic_profile)
-    # feature_dict, train_data, labels = merge_feature(static_profile, influence_dict, broadcast_dict, frequency_dict, centrality_dict)
+    influence_dict = calculate_persona_influence(static_profile, dynamic_profile)
+    # print(influence_dict)
+    frequency_dict = calculate_interaction_frequency(static_profile, dynamic_profile)
+    # print(frequency_dict)
+    broadcast_dict = calculate_information_broadcast(static_profile, dynamic_profile)
+    # print(broadcast_dict)
+    centrality_dict = calculate_social_network_centrality(static_profile, dynamic_profile)
+    feature_dict, train_data, labels = merge_feature(static_profile, influence_dict, broadcast_dict, frequency_dict, centrality_dict)
     train_data, labels = [], []
     for line in open(train_file, "r", encoding="utf-8"):
         sample = json.loads(line.strip())
         train_data.append(sample[0:18])
         labels.append(sample[18])
     model = model_train(train_data, labels)
-    # sorted_dict = rank(feature_dict, static_profile)
-    # rank_idx = 1
-    # for user_id in sorted_dict:
-    #     print("%s\t%s\t%s\t%s" % (rank_idx, user_id, static_profile[user_id]["user_name"], sorted_dict[user_id]))
-    #     rank_idx += 1
+    sorted_dict = rank(feature_dict, static_profile)
+    rank_idx = 1
+    for user_id in sorted_dict:
+        print("%s\t%s\t%s\t%s" % (rank_idx, user_id, static_profile[user_id]["user_name"], sorted_dict[user_id]))
+        rank_idx += 1
