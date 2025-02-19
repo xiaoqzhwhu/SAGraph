@@ -82,7 +82,7 @@ The product information , profile data of each user and interaction data under t
 1、Ads information
 
 - product_name: spark_thinking
-- product_type: education
+- domain: education
 - ads: Check out the poster for Spark Thinking's November event! Get 48 classes for just 4,880 yuan, plus 15,000 Huohua coins, a Tingli Xiong audio machine, and 10 sets of the popular science book *The World Is Really Wonderful*. Simply long press and scan the QR code to purchase now!\nWe've been giving away corn for several months, but this time we've switched things up with a new gift.\nThe PR team gently reminded me: "Are you always giving away corn? Won't people get tired of it?" [Not Simple] [Not Simple]\nThis time, we’re giving away a set of popular science books! Anyone who purchases the course in November will receive a set of these books!\nAnd if you still prefer corn, feel free to contact me privately to swap the gift.
 - influencer_ids: 162395, 172251, 177999, 171351, 163119
 
